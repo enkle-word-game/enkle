@@ -1,0 +1,163 @@
+html {
+    font-size: 13px;
+}
+
+@media (min-width: 900px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    background-color: #0e1626;
+    color: aliceblue;
+    margin: 0;
+    font-family: Poppins, sans-serif;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+
+#game-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+#game {
+    color: aliceblue;
+    background-image: linear-gradient(153deg, #1c2b45 13%, #0c1321 85%), linear-gradient(149deg, #fec63b 3%, rgba(254, 198, 59, 0) 80%);
+    position: relative;
+    border-radius: 20px;
+    width: auto;
+    max-width: max-content;
+    margin: 2rem 0;
+}
+
+#game:before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: -7px;
+    background-image: linear-gradient(138deg, #6ba0e2 -20%, #131e32 105%);
+    z-index: -1;
+    border-radius: 25px;
+}
+
+output {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+    margin-top: 1rem;
+    position: relative;
+    inset: auto 0 3rem 0;
+}
+
+output:empty {
+    display: none;
+    color: #496e9e;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.row.current .tile:empty:first-of-type {
+    animation: fade 2s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fade {
+    50% {
+        background: rgba(255, 255, 255, .05);
+    }
+}
+
+.tile {
+    outline: 1px solid rgba(73, 110, 158, .1);
+    width: 15vw;
+    height: 15vw;
+    max-width: calc(100vh / 13);
+    max-height: calc(100vh / 13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: aliceblue;
+}
+
+.row.invalid .tile, .tile.invalid {
+    color: #ff3f3f;
+    text-shadow: 0 0 12px rgba(246, 38, 38, 0.42);
+}
+
+.tile.absent {
+    color: grey;
+    text-shadow: 0 0 12px rgba(93, 92, 92, 0.419);
+}
+
+.key.absent {
+    background: grey;
+}
+
+.tile.present {
+    color: rgba(209, 209, 4, 0.941);
+    text-shadow: 0 0 12px rgba(246, 171, 38, 0.42);
+}
+
+.key.present {
+    background: rgba(209, 209, 4, 0.941);
+}
+
+.tile.correct {
+    color: rgb(27, 213, 2);
+    text-shadow: 0 0 12px rgba(38, 246, 110, 0.42);
+}
+
+.key.correct {
+    background: rgb(27, 213, 2);
+}
+
+#keyboard {
+    margin: 2rem 0;
+}
+
+.key {
+    background: aliceblue;
+    border: 0;
+    border-radius: 4px;
+    height: 50px;
+    padding: 0 10px;
+    color: #0c1321;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    margin: 2px;
+}
