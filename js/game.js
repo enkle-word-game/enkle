@@ -28,26 +28,34 @@ export default {
             return this.guessesAllowed - this.currentRowIndex - 1
         },
 
-        get currentLen() {
-            return this.len
-        },
-
         harder() {
+            if (this.guessesAllowed <=2) {
+                return
+            }
             this.guessesAllowed--
             this.init()
         },
 
         easier() {
+            if (this.guessesAllowed >= 8) {
+                return
+            }
             this.guessesAllowed++
             this.init()
         },
 
         longer() {
+            if (this.len >= 5) {
+                return
+            }
             this.len++
             this.init()
         },
 
         shorter() {
+            if (this.len <=3) {
+                return
+            }
             this.len--
             this.init()
         },
@@ -106,11 +114,13 @@ export default {
         },
 
         submitGuess() {
+            let possibles = words[this.len] + answers[this.len];
+
             if (this.currentGuess.length < this.theWord.length) {
                 return;
             }
 
-            if (!words[this.len].includes(this.currentGuess.toUpperCase())) {
+            if (!possibles.includes(this.currentGuess.toUpperCase())) {
                 this.errors = true;
                 this.message = "Invalid word...";
 
