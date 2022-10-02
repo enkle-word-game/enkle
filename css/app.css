@@ -64,6 +64,15 @@ h1 {
     border-radius: 25px;
 }
 
+#options {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 600px;
+    margin: 2rem;
+    padding: 2rem;
+}
+
 output {
     font-size: 20px;
     font-weight: 500;

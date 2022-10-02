@@ -32,9 +32,26 @@
 
             </header>
 
-            <div id="game">
-                <template x-for="(row, index) in board">
-                    <div class="row" :class="{'current' : currentRowIndex === index, 'invalid' : currentRowIndex === index && errors }">
+            <aside id="options">
+                <div>
+                    <h2>Guesses: <span x-text="guessesAllowed"></span></h2>
+                    <button class="key" type="button" @click.stop="easier">+</button>
+                    <button class="key" type="button" @click.stop="harder">-</button>
+                </div>
+                <div class="">
+                    <h2>Start New:</h2>
+                    <button class="key" type="button" @click.stop="init">&#8635;</button>
+                </div>
+                <div class="">
+                    <h2>Word Length: <span x-text="len"></span></h2>
+                    <button class="key" type="button" @click.stop="longer">+</button>
+                    <button class="key" type="button" @click.stop="shorter">-</button>
+                </div>
+            </aside>
+                
+                <div id="game">
+                    <template x-for="(row, index) in board">
+                        <div class="row" :class="{'current' : currentRowIndex === index, 'invalid' : currentRowIndex === index && errors }">
                         <template x-for="tile in row">
                             <div class="tile" :class="tile.status" x-text="tile.letter"></div>
                         </template>

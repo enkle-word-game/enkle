@@ -3,7 +3,8 @@ import {words, answers} from './words.js';
 
 export default {
         guessesAllowed: 5,
-        theWord: answers[Math.floor(Math.random() * answers.length)].toLowerCase(),
+        len: 3,
+        theWord: answers[3][Math.floor(Math.random() * answers[3].length)].toLowerCase(),
         currentRowIndex: 0,
         state: 'active',
         errors: false,
@@ -27,7 +28,36 @@ export default {
             return this.guessesAllowed - this.currentRowIndex - 1
         },
 
+        get currentLen() {
+            return this.len
+        },
+
+        harder() {
+            this.guessesAllowed--
+            this.init()
+        },
+
+        easier() {
+            this.guessesAllowed++
+            this.init()
+        },
+
+        longer() {
+            this.len++
+            this.init()
+        },
+
+        shorter() {
+            this.len--
+            this.init()
+        },
+
         init() {
+            this.theWord = answers[this.len][Math.floor(Math.random() * answers[this.len].length)].toLowerCase()
+            this.currentRowIndex = 0
+            this.state = 'active'
+            this.errors = false
+            this.message = ''
             this.board = Array.from({ length: this.guessesAllowed }, () => {
                 return Array.from({ length: this.theWord.length }, (item, index) => new Tile(index))
             });
@@ -75,30 +105,30 @@ export default {
             }
         },
 
-    submitGuess() {
-        if (this.currentGuess.length < this.theWord.length) {
-            return;
-        }
+        submitGuess() {
+            if (this.currentGuess.length < this.theWord.length) {
+                return;
+            }
 
-        if (!words.includes(this.currentGuess.toUpperCase())) {
-            this.errors = true;
-            this.message = "Invalid word...";
+            if (!words[this.len].includes(this.currentGuess.toUpperCase())) {
+                this.errors = true;
+                this.message = "Invalid word...";
 
-            return;
-        }
+                return;
+            }
 
-        Tile.updateStatusesForRow(this.currentRow, this.theWord);
+            Tile.updateStatusesForRow(this.currentRow, this.theWord);
 
-        if (this.currentGuess === this.theWord) {
-            this.state = "complete";
-            this.message = "You Win!";
+            if (this.currentGuess === this.theWord) {
+                this.state = "complete";
+                this.message = "You Win!";
 
-            confetti();
-        } else if (this.remainingGuesses === 0) {
-            this.state = "complete";
-            this.message = `Game Over. You Lose. (${this.theWord})`;
-        } else {
-            this.currentRowIndex++;
-        }
-    },
+                confetti();
+            } else if (this.remainingGuesses === 0) {
+                this.state = "complete";
+                this.message = `Game Over. You Lose. (${this.theWord})`;
+            } else {
+                this.currentRowIndex++;
+            }
+        },
     };
